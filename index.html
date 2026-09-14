@@ -224,11 +224,10 @@ body {
 
         <div class="top">
             <span class="logo">CALCULATOR</span>
-            <span>01</span>
         </div>
 
         <div class="display">
-            0
+            <h3>0</h3>
         </div>
 
         <div class="number">
@@ -236,12 +235,12 @@ body {
             <button class="n1">×</button>
             <button class="n1">AC</button>
             <button class="n1">%</button>
-            <button class="n2">÷</button>
+            <button class="n2">/</button>
 
             <button class="n3">7</button>
             <button class="n3">8</button>
             <button class="n3">9</button>
-            <button class="n2">×</button>
+            <button class="n2">*</button>
 
             <button class="n3">4</button>
             <button class="n3">5</button>
@@ -261,6 +260,85 @@ body {
         </div>
 
     </div>
+<script>
 
+    let display = document.querySelector('.display h3');
+    let buttons = document.querySelectorAll('button');
+
+    buttons.forEach(button => {
+
+        button.addEventListener('click', () => {
+
+            // Raqamlarni chiqarish
+            if (!isNaN(button.textContent)) {
+
+                if (display.textContent === "0") {
+                    display.textContent = button.textContent;
+                }
+                else {
+                    display.textContent += button.textContent;
+                }
+            }
+
+            // AC - hammasini o'chirish
+            if (button.textContent === 'AC') {
+                display.textContent = "0";
+            }
+
+            // Qo'shish
+            else if (button.textContent === '+') {
+                display.textContent += '+';
+            }
+
+            // Ayirish
+            else if (button.textContent === '−') {
+                display.textContent += '-';
+            }
+
+            // Bo'lish
+            else if (button.textContent === '÷') {
+                display.textContent += '/';
+            }
+
+            // Nuqta
+            else if (button.textContent === '.') {
+                display.textContent += '.';
+            }
+
+            // Foiz
+            else if (button.textContent === '%') {
+                display.textContent =
+                    eval(display.textContent) / 100;
+            }
+
+            // = hisoblash
+            else if (button.textContent === '=') {
+
+                try {
+                    display.textContent =
+                        eval(display.textContent);
+                }
+                catch {
+                    display.textContent = "Error";
+                }
+            }
+
+            // × - faqat 1 ta belgini o'chirish
+            else if (button.textContent === '×') {
+
+                display.textContent =
+                    display.textContent.slice(0, -1);
+
+                // Agar hammasi o'chib ketsa 0 bo'ladi
+                if (display.textContent === '') {
+                    display.textContent = '0';
+                }
+            }
+
+        });
+
+    });
+
+</script>
 </body>
 </html>
